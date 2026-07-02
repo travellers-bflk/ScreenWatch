@@ -494,8 +494,8 @@ $RECYCLE.BIN/
 *.db-journal
 *.db-shm
 *.db-wal
-data/
-userdata/
+/data/
+user/data/
 
 # === 用户配置 ===
 config.local.*
@@ -522,3 +522,6 @@ desktop.ini
 .DS_Store
 
 # === ������ ===
+
+# === Release 发布包（通过 GitHub Releases 分发） ===
+*.zip
