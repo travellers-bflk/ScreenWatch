@@ -1,4 +1,4 @@
-# Changelog
+﻿# Changelog
 
 All notable changes to this project will be documented in this file.
 
@@ -15,7 +15,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 自定义分类规则
 - 排除白名单
 - 开机自启与系统托盘驻留
-- 明暗主题切换
 - 本地 SQLite 数据存储，完全离线
 
 [Unreleased]: https://github.com/travellers-bflk/ScreenWatch/commits/main
