@@ -1,0 +1,24 @@
+{
+  "rules": [
+    { "exeName": "chrome.exe", "category": "工作", "displayName": "Google Chrome" },
+    { "exeName": "msedge.exe", "category": "工作", "displayName": "Microsoft Edge" },
+    { "exeName": "explorer.exe", "category": "其他", "displayName": "文件资源管理器" },
+    { "exeName": "Code.exe", "category": "工作", "displayName": "Visual Studio Code" },
+    { "exeName": "devenv.exe", "category": "工作", "displayName": "Visual Studio" },
+    { "exeName": "steam.exe", "category": "娱乐", "displayName": "Steam" },
+    { "exeName": "EpicGamesLauncher.exe", "category": "娱乐", "displayName": "Epic Games" },
+    { "exeName": "Discord.exe", "category": "社交", "displayName": "Discord" },
+    { "exeName": "WeChat.exe", "category": "社交", "displayName": "微信" },
+    { "exeName": "QQ.exe", "category": "社交", "displayName": "QQ" },
+    { "exeName": "Telegram.exe", "category": "社交", "displayName": "Telegram" },
+    { "exeName": "spotify.exe", "category": "娱乐", "displayName": "Spotify" },
+    { "exeName": "vlc.exe", "category": "娱乐", "displayName": "VLC" },
+    { "exeName": "notepad.exe", "category": "其他", "displayName": "记事本" },
+    { "exeName": "WINWORD.EXE", "category": "工作", "displayName": "Microsoft Word" },
+    { "exeName": "EXCEL.EXE", "category": "工作", "displayName": "Microsoft Excel" },
+    { "exeName": "POWERPNT.EXE", "category": "工作", "displayName": "Microsoft PowerPoint" },
+    { "exeName": "OneNote.exe", "category": "学习", "displayName": "Microsoft OneNote" },
+    { "exeName": "acad.exe", "category": "工作", "displayName": "AutoCAD" },
+    { "exeName": "photoshop.exe", "category": "工作", "displayName": "Adobe Photoshop" }
+  ]
+}

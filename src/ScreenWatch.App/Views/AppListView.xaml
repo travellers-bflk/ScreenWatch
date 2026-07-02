@@ -1,0 +1,126 @@
+<UserControl x:Class="ScreenWatch.App.Views.AppListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:conv="clr-namespace:ScreenWatch.App.Converters">
+    <UserControl.Resources>
+        <conv:BoolToVisibilityConverter x:Key="BoolToVis"/>
+        <conv:EmptyToVisibilityConverter x:Key="EmptyToVis"/>
+        <conv:DurationConverter x:Key="DurationConverter"/>
+        <Style x:Key="CellStyle" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="4,0"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="16,12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- 标题 + 未归类提示 + 工具栏按钮 -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
+            <TextBlock Text="应用列表" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal" Margin="16,0,0,0"
+                        Visibility="{Binding UnrecognizedCount, Converter={StaticResource EmptyToVis}}">
+                <Ellipse Width="8" Height="8" Fill="{DynamicResource ErrorBrush}" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding UnrecognizedCount}" FontSize="12" Foreground="{DynamicResource ErrorBrush}"
+                           VerticalAlignment="Center" Margin="4,0,0,0"/>
+                <TextBlock Text=" 个未归类应用" FontSize="12" Foreground="{DynamicResource SecondaryTextBrush}"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+            <!-- 工具栏：自动分类 + 重置全部分类 -->
+            <Button Style="{DynamicResource ModernButton}" Content="🔍 自动分类" Margin="24,0,0,0"
+                    VerticalAlignment="Center" Click="OnAutoCategorizeClick"/>
+            <Button Style="{DynamicResource ModernButton}" Content="重置全部分类" Margin="8,0,0,0"
+                    VerticalAlignment="Center" Click="OnResetAllCategoriesClick"/>
+        </StackPanel>
+
+        <!-- 空数据提示 -->
+        <TextBlock Grid.Row="2" Text="暂无应用记录" FontSize="16" Foreground="{DynamicResource SecondaryTextBrush}"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Visibility="{Binding HasData, Converter={StaticResource BoolToVis}, ConverterParameter=Inverse}"/>
+
+        <!-- 应用列表 -->
+        <DataGrid Grid.Row="2"
+                  ItemsSource="{Binding AppRows}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  IsReadOnly="True"
+                  HeadersVisibility="Column"
+                  GridLinesVisibility="Horizontal"
+                  HorizontalGridLinesBrush="{DynamicResource BorderBrush}"
+                  BorderBrush="{DynamicResource BorderBrush}"
+                  BorderThickness="1"
+                  RowHeight="32"
+                  Visibility="{Binding HasData, Converter={StaticResource BoolToVis}}">
+            <DataGrid.Columns>
+                <!-- 未归类红点 -->
+                <DataGridTemplateColumn Header="" Width="32">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Ellipse Width="8" Height="8" Fill="{DynamicResource ErrorBrush}"
+                                     HorizontalAlignment="Center" VerticalAlignment="Center"
+                                     Visibility="{Binding IsUnrecognized, Converter={StaticResource BoolToVis}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- 应用图标 -->
+                <DataGridTemplateColumn Header="" Width="40">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Icon}"
+                                   Width="24" Height="24"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Stretch="Uniform"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- 应用名 -->
+                <DataGridTextColumn Header="应用名" Binding="{Binding DisplayName}" Width="200"
+                                    ElementStyle="{StaticResource CellStyle}"/>
+                
+                <!-- Exe名 -->
+                <DataGridTextColumn Header="Exe名" Binding="{Binding ExeName}" Width="160"
+                                    ElementStyle="{StaticResource CellStyle}"/>
+
+                <!-- 分类下拉（选择后自动保存，无需点“应用”按钮） -->
+                <DataGridTemplateColumn Header="分类" Width="160">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox ItemsSource="{Binding DataContext.Categories, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                      SelectedValue="{Binding CategoryId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedValuePath="CategoryId"
+                                      DisplayMemberPath="Name"
+                                      Margin="2" VerticalAlignment="Center"
+                                      SelectionChanged="OnCategorySelectionChanged"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- 前台时长 -->
+                <DataGridTextColumn Header="前台时长" 
+                                    Binding="{Binding ForegroundDuration}"
+                                    Width="120" 
+                                    ElementStyle="{StaticResource CellStyle}"/>
+
+                <!-- 后台时长 -->
+                <DataGridTextColumn Header="后台时长" 
+                                    Binding="{Binding BackgroundDuration}"
+                                    Width="120"
+                                    ElementStyle="{StaticResource CellStyle}"/>
+
+                <!-- 总时长 -->
+                <DataGridTextColumn Header="总时长" 
+                                    Binding="{Binding TotalDuration}"
+                                    Width="120"
+                                    ElementStyle="{StaticResource CellStyle}"/>
+
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

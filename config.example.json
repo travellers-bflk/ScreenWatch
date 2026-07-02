@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json.schemastore.org/appsettings.json",
+  "IdleThresholdSeconds": 300,
+  "BackgroundEnumerationIntervalSeconds": 45,
+  "CaptureWindowTitle": false,
+  "StartWithWindows": false,
+  "DataDirectory": "%APPDATA%\\ScreenWatch\\data",
+  "DatabaseFileName": "usage.db",
+  "Whitelist": [],
+  "AppCategories": {
+    "Development": [
+      "devenv.exe",
+      "code.exe",
+      "cursor.exe"
+    ],
+    "Work": [
+      "explorer.exe",
+      "msedge.exe",
+      "chrome.exe"
+    ],
+    "Communication": [
+      "Teams.exe",
+      "WeChat.exe",
+      "Discord.exe"
+    ],
+    "Entertainment": [
+      "steam.exe",
+      "Spotify.exe"
+    ]
+  }
+}
